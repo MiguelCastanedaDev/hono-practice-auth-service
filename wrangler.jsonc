@@ -2,7 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hono-practice-auth-service",
   "main": "src/index.ts",
-  "compatibility_date": "2026-09-18"
+  "compatibility_date": "2026-09-18",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "3d1829ea-d3cc-42b5-9b7c-17bd49686f6a",
+      "database_id": "3d1829ea-d3cc-42b5-9b7c-17bd49686f6a"
+    }
+  ]
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
