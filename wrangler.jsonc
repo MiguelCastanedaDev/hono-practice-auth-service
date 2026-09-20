@@ -9,7 +9,10 @@
       "database_name": "3d1829ea-d3cc-42b5-9b7c-17bd49686f6a",
       "database_id": "3d1829ea-d3cc-42b5-9b7c-17bd49686f6a"
     }
-  ]
+  ],
+  "vars": {
+    "JWT_SECRET": "my-variable"
+  }
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],

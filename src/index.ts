@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { sign } from 'hono/jwt';
 import { hashPassword } from './utils/hashPassword';
 import { comparePassword } from './utils/comparePassword';
 import type { Bindings } from './types/types';
@@ -65,13 +66,30 @@ app.post('/login', async (c) => {
 
   if (!isMatch) {
     return c.json(
-      { message: 'Invalid credentials' },
+      { message: 'La contraseña es incorrecta' },
       401
     );
   }
 
+  if (!c.env.JWT_SECRET) {
+    return c.json(
+      { message: 'JWT secret is not configured' },
+      500
+    );
+  }
+
+  const token = await sign(
+    {
+      sub: String(user.id),
+      email: user.email,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60
+    },
+    c.env.JWT_SECRET
+  );
+
   return c.json({
-    message: 'Login successful'
+    message: 'Login successful',
+    token
   });
 });
 export default app
