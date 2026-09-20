@@ -3,6 +3,7 @@ import { sign } from 'hono/jwt';
 import { hashPassword } from './utils/hashPassword';
 import { comparePassword } from './utils/comparePassword';
 import type { Bindings } from './types/types';
+import { authMiddleware } from './middleware/auth';
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -92,4 +93,21 @@ app.post('/login', async (c) => {
     token
   });
 });
+
+app.get(
+  '/ping',
+  authMiddleware,
+  async (c) => {
+    const user = c.get('jwtPayload');
+
+    return c.json({
+      id: user.sub,
+      email: user.email,
+      exp: new Date(user.exp * 1000).toLocaleString('es-MX', {
+        timeZone: 'America/Mexico_City'
+      })
+    });
+  }
+);
+
 export default app
