@@ -4,8 +4,19 @@ import { hashPassword } from './utils/hashPassword';
 import { comparePassword } from './utils/comparePassword';
 import type { Bindings } from './types/types';
 import { authMiddleware } from './middleware/auth';
+import { cors } from 'hono/cors'
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+app.use(
+  '*',
+  cors({
+    origin: 'https://tanstack-start-practice-auth-service.mikeonlinemx.workers.dev',
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }),
+)
 
 app.post('/auth/register', async (c) => {
   const { email, password } = await c.req.json();
