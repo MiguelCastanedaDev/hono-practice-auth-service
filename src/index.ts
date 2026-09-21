@@ -11,7 +11,7 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.use(
   '*',
   cors({
-    origin: 'https://tanstack-start-practice-auth-service.mikeonlinemx.workers.dev',
+    origin: 'https://tanstack-start-practice-auth-service.mikeonlinemx.workers.de',
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
